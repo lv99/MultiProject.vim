@@ -21,6 +21,10 @@ function! s:Creator._nextBufferName()
     return name
 endfunction
 
+function! s:Creator._broadcastInitEvent()
+    silent doautocmd User MProjInit
+endfunction
+
 function! s:Creator.BufNamePrefix()
     return 'MProj_'
 endfunction
@@ -83,9 +87,9 @@ function! s:Creator._createTreeWin()
 
 endfunction
 
-function! s:Creator.ToggleTabTree(dir)
+function! s:Creator.ToggleTabTree()
     let creator = s:Creator.New()
-    call creator.toggleTabTree(a:dir)
+    call creator.toggleTabTree()
 endfunction
 
 function! s:Creator.CreateTabTree()
@@ -93,7 +97,55 @@ function! s:Creator.CreateTabTree()
     call creator.createTabTree()
 endfunction
 
+function! s:Creator._isBufHidden(nr)
+    redir => bufs
+    silent ls!
+    redir END
+    return bufs =~ a:nr . '..h'
+endfunction
+
+function! s:Creator._removeTreeBufForTab()
+    let buf = bufnr(t:MProjBufName)
+    if buf != -1
+        if self._isBufHidden(buf)
+            exec "bwipeout " . buf
+        endif
+
+    endif
+    unlet t:MProjBufName
+endfunction
+
+function! s:Creator._createMProj()
+    let b:MProj = g:NERDTree.New()
+
+    let b:MProjRoot = b:MProj.root
+
+    call b:MProj.root.open()
+endfunction
+
 function! s:Creator.createTabTree()
+    "let l:path = self._pathForString(a:name)
+    "" Abort if an exception was thrown (i.e., if the bookmark or directory
+    "" does not exist).
+    "if empty(l:path)
+    "    return
+    "endif
+
+    "" Obey the user's preferences for changing the working directory.
+    "if g:NERDTreeChDirMode != 0
+    "    call l:path.changeToDir()
+    "endif
+
+    if g:MProj.ExistsForTab()
+        call g:MProj.Close()
+        call self._removeTreeBufForTab()
+    endif
+
+    call self._createTreeWin()
+    call self._createMProj()
+    call b:MProj.render()
+    call b:MProj.root.putCursorHere(0, 0)
+
     call self._broadcastInitEvent()
 endfunction
 

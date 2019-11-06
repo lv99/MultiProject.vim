@@ -2,16 +2,23 @@
 let s:MProj = {}
 let g:MProj = s:MProj
 
-function! s:MProj.New(path, type)
+function! s:MProj.New()
     let newObj = copy(self)
     let newObj.ui = g:MProjUI.New(newObj)
-    "let newObj.root = g:NERDTreeDirNode.New(a:path, newObj)
+    let newObj.root = g:MProjList.New(newObj)
     let newObj._type = a:type
     return newObj
 endfunction
 
 function! s:MProj.ExistsForBuf()
     return exists("b:MProj")
+endfunction
+
+function! s:MProj.ExistsForTab()
+    if !exists("t:MProjBufName")
+        return
+    end
+    return !empty(getbufvar(bufnr(t:MProjBufName), 'MProj'))
 endfunction
 
 function! s:MProj.GetWinNum()
