@@ -6,7 +6,6 @@ function! s:MProj.New()
     let newObj = copy(self)
     let newObj.ui = g:MProjUI.New(newObj)
     let newObj.root = g:MProjList.New(newObj)
-    let newObj._type = a:type
     return newObj
 endfunction
 
@@ -17,7 +16,7 @@ endfunction
 function! s:MProj.ExistsForTab()
     if !exists("t:MProjBufName")
         return
-    end
+	endif
     return !empty(getbufvar(bufnr(t:MProjBufName), 'MProj'))
 endfunction
 

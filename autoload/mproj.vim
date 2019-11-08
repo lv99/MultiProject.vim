@@ -18,9 +18,14 @@ function! mproj#loadClassFiles()
 	runtime mproj_lib/creator.vim
 	runtime mproj_lib/key_map.vim
 	runtime mproj_lib/ui.vim
+	runtime mproj_lib/proj_list.vim
 endfunction
 
 function! mproj#setupUICommands()
     command! -n=? -complete=dir -bar MProjToggle :call g:MProjCreator.ToggleTabTree()
 endfunction
 
+function! mproj#echo(msg)
+    redraw
+    echomsg empty(a:msg) ? "" : ("MulitProject: " . a:msg)
+endfunction

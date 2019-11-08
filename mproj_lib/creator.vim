@@ -83,8 +83,6 @@ function! s:Creator._createTreeWin()
 
     call self._setCommonBufOptions()
 
-    endif
-
 endfunction
 
 function! s:Creator.ToggleTabTree()
@@ -116,11 +114,10 @@ function! s:Creator._removeTreeBufForTab()
 endfunction
 
 function! s:Creator._createMProj()
-    let b:MProj = g:NERDTree.New()
+    let b:MProj = g:MProj.New()
 
     let b:MProjRoot = b:MProj.root
 
-    call b:MProj.root.open()
 endfunction
 
 function! s:Creator.createTabTree()
@@ -144,7 +141,7 @@ function! s:Creator.createTabTree()
     call self._createTreeWin()
     call self._createMProj()
     call b:MProj.render()
-    call b:MProj.root.putCursorHere(0, 0)
+    "call b:MProj.root.putCursorHere(0, 0)
 
     call self._broadcastInitEvent()
 endfunction
