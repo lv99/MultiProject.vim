@@ -24,13 +24,6 @@ function! s:MProj.GetWinNum()
     if exists("t:MProjBufName")
         return bufwinnr(t:MProjBufName)
     endif
-
-    for w in range(1,winnr('$'))
-        if bufname(winbufnr(w)) =~# '^' . g:MProjCreator.BufNamePrefix() . '\d\+$'
-            return w
-        endif
-    endfor
-
     return -1
 endfunction
 

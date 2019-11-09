@@ -14,6 +14,7 @@ endfunction
 
 call s:initVariable("g:MProjWinPos", "left")
 call s:initVariable("g:MProjWinSize", 31)
+call s:initVariable("g:MProjProjectList", [])
 
 call mproj#loadClassFiles()
 call mproj#setupUICommands()

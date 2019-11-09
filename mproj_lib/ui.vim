@@ -25,7 +25,7 @@ function! s:UI.render()
     " call self._dumpHelp()
 
     " draw the header line
-    let header = "MultiProject"
+    let header = " MultiProject "
 	call setline(line(".")+1, header)
     call cursor(line(".")+1, col("."))
 

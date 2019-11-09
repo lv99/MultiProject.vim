@@ -7,31 +7,9 @@ function! s:Creator.New()
     return newCreator
 endfunction
 
-function! s:Creator._nextBufferNumber()
-    if !exists("s:Creator._NextBufNum")
-        let s:Creator._NextBufNum = 1
-    else
-        let s:Creator._NextBufNum += 1
-    endif
-    return s:Creator._NextBufNum
+function! s:Creator.BufferName()
+    return 'MProj'
 endfunction
-
-function! s:Creator._nextBufferName()
-    let name = s:Creator.BufNamePrefix() . self._nextBufferNumber()
-    return name
-endfunction
-
-function! s:Creator._broadcastInitEvent()
-    silent doautocmd User MProjInit
-endfunction
-
-function! s:Creator.BufNamePrefix()
-    return 'MProj_'
-endfunction
-
-function! s:Creator._bindMappings()
-    call g:MProjKeyMap.BindAll()
-endfunction 
 
 function! s:Creator._setCommonBufOptions()
 
@@ -59,7 +37,7 @@ function! s:Creator._setCommonBufOptions()
     "endif
 
     "call self._setupStatusline()
-	call self._bindMappings()
+	call mproj#bindMappings()
 
     setlocal filetype=mproj
 endfunction
@@ -70,7 +48,7 @@ function! s:Creator._createTreeWin()
     let l:splitSize = g:MProjWinSize
 
     if !g:MProj.ExistsForTab()
-        let t:NERDTreeBufName = self._nextBufferName()
+        let t:NERDTreeBufName = self.BufferName()
         silent! execute l:splitLocation . 'vertical ' . l:splitSize . ' new'
         silent! execute 'edit ' . t:NERDTreeBufName
         silent! execute 'vertical resize '. l:splitSize
@@ -121,18 +99,6 @@ function! s:Creator._createMProj()
 endfunction
 
 function! s:Creator.createTabTree()
-    "let l:path = self._pathForString(a:name)
-    "" Abort if an exception was thrown (i.e., if the bookmark or directory
-    "" does not exist).
-    "if empty(l:path)
-    "    return
-    "endif
-
-    "" Obey the user's preferences for changing the working directory.
-    "if g:NERDTreeChDirMode != 0
-    "    call l:path.changeToDir()
-    "endif
-
     if g:MProj.ExistsForTab()
         call g:MProj.Close()
         call self._removeTreeBufForTab()
@@ -141,13 +107,11 @@ function! s:Creator.createTabTree()
     call self._createTreeWin()
     call self._createMProj()
     call b:MProj.render()
-    "call b:MProj.root.putCursorHere(0, 0)
 
-    call self._broadcastInitEvent()
 endfunction
 
 function! s:Creator.toggleTabTree()
-    if g:MProj.ExistsForTab()
+	if g:MProj.ExistsForTab()
         if !g:MProj.IsOpen()
             call self._createTreeWin()
             if !&hidden

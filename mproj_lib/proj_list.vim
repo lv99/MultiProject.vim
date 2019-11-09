@@ -20,3 +20,27 @@ function! s:MProjList.renderToString()
 	endfor
     return output
 endfunction
+
+function! s:MProjList.GetSelected()
+	let index = line('.') - 2
+	if index < 0
+		return {}
+	endif
+	let config = g:MProjProjectList[index]
+	return config
+endfunction
+
+function! s:MProjList.openProject()
+	let config=self.GetSelected()
+	if len(config) <= 0
+		return
+	endif
+	exec 'cd ' . config['path']
+	if exists("g:NERDTree")
+		if !g:NERDTree.ExistsForBuf()
+			NERDTree
+		else
+			NERDTreeCWD
+		endif
+	endif
+endfunction

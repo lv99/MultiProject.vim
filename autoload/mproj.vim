@@ -25,6 +25,10 @@ function! mproj#setupUICommands()
     command! -n=? -complete=dir -bar MProjToggle :call g:MProjCreator.ToggleTabTree()
 endfunction
 
+function! mproj#bindMappings()
+	nnoremap <buffer> <silent> o : call b:MProjRoot.openProject()<CR>
+endfunction 
+
 function! mproj#echo(msg)
     redraw
     echomsg empty(a:msg) ? "" : ("MulitProject: " . a:msg)
