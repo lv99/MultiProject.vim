@@ -25,6 +25,9 @@ function! s:MProjList.openProject()
 		return
 	endif
 	exec 'cd ' . config['path']
+	if g:MProjAutoHide
+		call g:MProj.Close()
+	endif
 	if exists("g:NERDTree")
 		if !g:NERDTree.ExistsForBuf()
 			NERDTree

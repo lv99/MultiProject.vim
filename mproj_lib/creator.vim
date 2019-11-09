@@ -32,9 +32,7 @@ function! s:Creator._setCommonBufOptions()
 
     iabc <buffer>
 
-    "if g:MProjHighlightCursorline
-        setlocal cursorline
-    "endif
+    setlocal cursorline
 
     "call self._setupStatusline()
 	call mproj#bindMappings()
