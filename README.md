@@ -1,7 +1,7 @@
 ### MultiProject.vim
 a simple multi project manager
 
-<img src="https://raw.githubusercontent.com/lv99/i/master/MultiProject.vim/usage.gif" height="450"> 
+<img src="https://github.com/lv99/MultiProject.vim/raw/master/usage.gif" height="450"> 
 
 ### Installation
 
