@@ -16,7 +16,6 @@ endfunction
 function! mproj#loadClassFiles()
 	runtime mproj_lib/mproj.vim
 	runtime mproj_lib/creator.vim
-	runtime mproj_lib/key_map.vim
 	runtime mproj_lib/ui.vim
 	runtime mproj_lib/proj_list.vim
 endfunction
@@ -26,7 +25,7 @@ function! mproj#setupUICommands()
 endfunction
 
 function! mproj#bindMappings()
-	nnoremap <buffer> <silent> o : call b:MProjRoot.openProject()<CR>
+	nnoremap <buffer> <silent> o : call g:MProjList.openProject()<CR>
 endfunction 
 
 function! mproj#echo(msg)

@@ -2,14 +2,6 @@
 let s:UI = {}
 let g:MProjUI = s:UI
 
-function! s:UI.New(mproj)
-    let newObj = copy(self)
-    let newObj.mproj = a:mproj
-    let newObj._showHelp = 0
-    let newObj._ignoreEnabled = 1
-    return newObj
-endfunction
-
 function! s:UI.render()
     setlocal noreadonly modifiable
 
@@ -30,7 +22,7 @@ function! s:UI.render()
     call cursor(line(".")+1, col("."))
 
     " draw the tree
-    silent put =self.mproj.root.renderToString()
+    silent put =g:MProjList.renderToString()
 
     " delete the blank line at the top of the buffer
     silent 1,1delete _

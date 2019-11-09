@@ -47,15 +47,10 @@ function! s:Creator._createTreeWin()
     let l:splitLocation = g:MProjWinPos ==# 'left' ? 'topleft ' : 'botright '
     let l:splitSize = g:MProjWinSize
 
-    if !g:MProj.ExistsForTab()
-        let t:NERDTreeBufName = self.BufferName()
-        silent! execute l:splitLocation . 'vertical ' . l:splitSize . ' new'
-        silent! execute 'edit ' . t:NERDTreeBufName
-        silent! execute 'vertical resize '. l:splitSize
-    else
-        silent! execute l:splitLocation . 'vertical ' . l:splitSize . ' split'
-        silent! execute 'buffer ' . t:NERDTreeBufName
-    endif
+    let g:MProjBufName = self.BufferName()
+    silent! execute l:splitLocation . 'vertical ' . l:splitSize . ' new'
+    silent! execute 'edit ' . g:MProjBufName
+    silent! execute 'vertical resize '. l:splitSize
 
     setlocal winfixwidth
 
@@ -68,11 +63,6 @@ function! s:Creator.ToggleTabTree()
     call creator.toggleTabTree()
 endfunction
 
-function! s:Creator.CreateTabTree()
-    let creator = s:Creator.New()
-    call creator.createTabTree()
-endfunction
-
 function! s:Creator._isBufHidden(nr)
     redir => bufs
     silent ls!
@@ -80,49 +70,13 @@ function! s:Creator._isBufHidden(nr)
     return bufs =~ a:nr . '..h'
 endfunction
 
-function! s:Creator._removeTreeBufForTab()
-    let buf = bufnr(t:MProjBufName)
-    if buf != -1
-        if self._isBufHidden(buf)
-            exec "bwipeout " . buf
-        endif
-
-    endif
-    unlet t:MProjBufName
-endfunction
-
-function! s:Creator._createMProj()
-    let b:MProj = g:MProj.New()
-
-    let b:MProjRoot = b:MProj.root
-
-endfunction
-
-function! s:Creator.createTabTree()
-    if g:MProj.ExistsForTab()
-        call g:MProj.Close()
-        call self._removeTreeBufForTab()
-    endif
-
-    call self._createTreeWin()
-    call self._createMProj()
-    call b:MProj.render()
-
-endfunction
-
 function! s:Creator.toggleTabTree()
-	if g:MProj.ExistsForTab()
-        if !g:MProj.IsOpen()
-            call self._createTreeWin()
-            if !&hidden
-                call b:MProj.render()
-            endif
-            call b:MProj.ui.restoreScreenState()
-        else
-            call g:MProj.Close()
-        endif
+    if !g:MProj.IsOpen()
+        call self._createTreeWin()
+        call g:MProj.render()
+        call g:MProjUI.restoreScreenState()
     else
-        call self.createTabTree()
+        call g:MProj.Close()
     endif
 endfunction
 

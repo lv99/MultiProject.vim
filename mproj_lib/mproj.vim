@@ -2,27 +2,9 @@
 let s:MProj = {}
 let g:MProj = s:MProj
 
-function! s:MProj.New()
-    let newObj = copy(self)
-    let newObj.ui = g:MProjUI.New(newObj)
-    let newObj.root = g:MProjList.New(newObj)
-    return newObj
-endfunction
-
-function! s:MProj.ExistsForBuf()
-    return exists("b:MProj")
-endfunction
-
-function! s:MProj.ExistsForTab()
-    if !exists("t:MProjBufName")
-        return
-	endif
-    return !empty(getbufvar(bufnr(t:MProjBufName), 'MProj'))
-endfunction
-
 function! s:MProj.GetWinNum()
-    if exists("t:MProjBufName")
-        return bufwinnr(t:MProjBufName)
+    if exists("g:MProjBufName")
+        return bufwinnr(g:MProjBufName)
     endif
     return -1
 endfunction
@@ -60,6 +42,6 @@ function! s:MProj.Close()
 endfunction
 
 function! s:MProj.render()
-    call self.ui.render()
+    call g:MProjUI.render()
 endfunction
 
