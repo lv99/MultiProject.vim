@@ -8,7 +8,7 @@ function! s:Creator.New()
 endfunction
 
 function! s:Creator.BufferName()
-    return 'MProj'
+    return 'B_MultiProject'
 endfunction
 
 function! s:Creator._setCommonBufOptions()
