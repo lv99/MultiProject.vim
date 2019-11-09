@@ -1,5 +1,5 @@
 ### MultiProject.vim
-a simple multi project manager [still has crash bug -_- , fixing.]
+a simple multi project manager
 
 <img src="https://raw.githubusercontent.com/lv99/i/master/MultiProject.vim/usage.gif" height="450"> 
 
