@@ -1,5 +1,5 @@
 ### MultiProject.vim
-a simple multi project manager
+An simple multi project manager
 
 <img src="https://github.com/lv99/MultiProject.vim/raw/master/usage.gif"> 
 
@@ -11,18 +11,32 @@ Install with vim-plug or vundle
 
 1. Add a mproj section to your '~/.vimrc'
 1. Add your projects to the 'g:MProjProjectList'
-1. Call the command 'MProjToggle' to show the project list.
+1. Call the command 'MProjToggle' to show project list.
 1. Click 'o' to open the selected project.
 
 #### Example
 
 ```vim
 
+function! OpenVimrc()
+	" do something when opening 'vimrc' project
+	echo 'opening vimrc'
+endfunction
+
+function! CloseVimrc()
+	" do something when closing 'vimrc' project 
+	echo 'closing vimrc'
+endfunction
+
 " Specify names and paths for your projects
+" Use the 'open' key to specify the callback function when opening the project
+" Use the 'close' key to specify the callback function when closing the project
 let g:MProjProjectList = [
 	\{
 		\'name':'vimrc',
 		\'path':'C:\Users\lv99\.vim',
+		\'open': function('OpenVimrc'),
+		\'close': function('CloseVimrc'),
 	\},
 	\{
 		\'name':'mproj',
@@ -39,7 +53,7 @@ Reload .vimrc and `:MProjToggle` to open the window.
 ### Commands
 | Command                             | Description                                                        |
 | ----------------------------------- | ------------------------------------------------------------------ |
-| `MProjToggle` | Open/close the project list.                                                    |
+| `MProjToggle` | Open/close project list.                                                    |
 
 ### Global options
 | Flag                | Default                           | Description                                            |
@@ -47,12 +61,12 @@ Reload .vimrc and `:MProjToggle` to open the window.
 | `g:MProjWinPos`    | left                                | Default windows position                       |
 | `g:MProjWinSize`    | 31                                | Default windows size                       |
 | `g:MProjProjectList`    | []                                | Specify names and paths for your projects                     |
-| `g:MProjAutoHide`    | 1                                | Default to close the MProj window after opened project                      |
+| `g:MProjAutoHide`    | 1                                | Default to close the MProj window after opening project                      |
 
 ### Keybindings
 
-- 'o' - Open the project
-
+- 'o' - Open project
+- '<leader>o' -Open project directory in Windows File Explorer 
 ### License
 
 MIT

@@ -26,6 +26,7 @@ endfunction
 
 function! mproj#bindMappings()
 	nnoremap <buffer> <silent> o : call g:MProjList.openProject()<CR>
+	nnoremap <buffer> <silent> <leader>o : call g:MProjList.openProjectInExplorer()<CR>
 endfunction 
 
 function! mproj#echo(msg)

@@ -27,8 +27,8 @@ function! s:Creator._setCommonBufOptions()
     setlocal nospell
     setlocal nowrap
 
-    setlocal nonu
-    setlocal nornu
+    setlocal nonumber
+    setlocal norelativenumber
 
     iabc <buffer>
 
@@ -40,6 +40,16 @@ function! s:Creator._setCommonBufOptions()
     setlocal filetype=mproj
 endfunction
 
+
+function! s:Creator._syntax()
+	syntax clear
+	syn match mprojTitle /MultiProject/
+	syn match mprojNormal / - \h\+/
+	syn match mprojError / × \h\+/
+	hi def link mprojTitle Title
+	hi def link mprojNormal Label
+	hi def link mprojError Error
+endfunction
 
 function! s:Creator._createTreeWin()
     let l:splitLocation = g:MProjWinPos ==# 'left' ? 'topleft ' : 'botright '
@@ -53,6 +63,7 @@ function! s:Creator._createTreeWin()
     setlocal winfixwidth
 
     call self._setCommonBufOptions()
+	call self._syntax()
 
 endfunction
 
