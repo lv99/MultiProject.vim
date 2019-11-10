@@ -1,5 +1,5 @@
 ### MultiProject.vim
-An simple multi project manager
+A simple multi project manager
 
 <img src="https://github.com/lv99/MultiProject.vim/raw/master/usage.gif"> 
 
