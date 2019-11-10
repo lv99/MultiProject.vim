@@ -66,7 +66,7 @@ Reload .vimrc and `:MProjToggle` to open the window.
 ### Keybindings
 
 - 'o' - Open project
-- '<leader>o' -Open project directory in Windows File Explorer 
+- 'Ctrl-o' -Open project directory in Windows File Explorer 
 ### License
 
 MIT
