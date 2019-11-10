@@ -53,7 +53,19 @@ function! s:MProjList.openProject()
 		return
 	endif
 	if !isdirectory(config['path'])
-		return
+		if len(config['path'])<=0
+			return
+		endif
+		let prompt = g:MProj.inputPrompt('create') . config['path'] .'(yN):'
+		let choice = input(prompt)
+		if choice !=# 'y'
+			return
+		endif
+		try
+			exec 'silent !mkdir -p ' . config['path']
+		catch
+			call mproj#echo('path not created.')
+		endtry
 	endif
 	if len(g:MProjCurrentConfig)>0
 		call self.doCloseCallback(g:MProjCurrentConfig)

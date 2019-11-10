@@ -27,3 +27,12 @@ function! s:MProj.render()
     call g:MProjUI.render()
 endfunction
 
+function! s:MProj.inputPrompt(action)
+    if a:action == "create"
+        let title = "Dir not exist"
+        let info = "Directory not exits, do you want to create it?"
+        let divider = "=========================================================="
+        return title . "\n" . divider . "\n" . info . "\n"
+    end
+endfunction
+
