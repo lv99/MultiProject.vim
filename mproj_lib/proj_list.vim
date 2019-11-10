@@ -62,7 +62,7 @@ function! s:MProjList.openProject()
 			return
 		endif
 		try
-			exec 'silent !mkdir -p ' . config['path']
+			exec 'silent !mkdir ' . config['path']
 		catch
 			call mproj#echo('path not created.')
 		endtry
