@@ -51,11 +51,13 @@ nmap <F2> :MProjToggle <CR>
 Reload .vimrc and `:MProjToggle` to open the window.
 
 ### Commands
+
 | Command                             | Description                                                        |
 | ----------------------------------- | ------------------------------------------------------------------ |
 | `MProjToggle` | Open/close project list.                                                    |
 
 ### Global options
+
 | Flag                | Default                           | Description                                            |
 | ------------------- | --------------------------------- | ------------------------------------------------------ |
 | `g:MProjWinPos`    | left                                | Default windows position                       |
